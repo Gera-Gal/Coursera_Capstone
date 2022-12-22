@@ -82,9 +82,12 @@ def get_pie_chart(entered_site):
 def get_pie_chart(entered_site, entered_payload):
     filtered_df = spacex_df
     if entered_site == 'ALL':
+        filtered_df = filtered_df[
+            (filtered_df['Payload Mass (kg)'] >= entered_payload[0]) &
+            (filtered_df['Payload Mass (kg)'] <= entered_payload[1])]
         fig = px.scatter(filtered_df, y='class', 
         x='Payload Mass (kg)', 
-        title='Correlation between Payload',
+        title='Correlation between Payload and Class, Booster-Colored',
         color='Booster Version Category')
         return fig
     else:
@@ -94,7 +97,7 @@ def get_pie_chart(entered_site, entered_payload):
             (filtered_df['Payload Mass (kg)'] <= entered_payload[1])]
         fig = px.scatter(filtered_df, y='class', 
         x='Payload Mass (kg)', 
-        title='Correlation between Payload {}'.format(entered_payload),
+        title='Correlation between Payload {} and Class, Booster-Colored'.format(entered_payload),
         color='Booster Version Category')
         return fig
 
